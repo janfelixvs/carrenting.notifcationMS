@@ -14,9 +14,10 @@ public class WebSocketController {
     private SimpMessagingTemplate messagingTemplate;
 
     @PostMapping("/send")
-    public void sendMessage(@RequestBody String message) {
-        // Broadcast the message to all subscribers of "/topic/messages"
-        messagingTemplate.convertAndSend("/topic/messages", message);
+    public void sendMessage(@RequestBody NotificationRequest notificationRequest) {
+        String message = notificationRequest.getMessageText();
+        // Sendet die Nachricht an das spezifische Thema für diese Kundennummer
+        messagingTemplate.convertAndSend("/topic/messages/" + notificationRequest.getCustomerId(), message);
     }
 
     // Example of handling WebSocket messages
