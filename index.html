@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WebSocket Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+
+<body>
+    <h2>WebSocket Test</h2>
+    <button onclick="connect()">Connect</button>
+    <button onclick="disconnect()" disabled>Disconnect</button>
+    <br><br>
+    <div id="response"></div>
+
+    <script type="text/javascript">
+        var stompClient = null;
+
+        function connect() {
+            var socket = new SockJS('http://localhost:8085/websocket');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/topic/messages', function (message) {
+                    // Change here: 'content' to 'messageText'
+                    showMessageOutput(JSON.parse(message.body).messageText);
+                });
+                setConnected(true);
+            });
+        }
+
+        function disconnect() {
+            if (stompClient !== null) {
+                stompClient.disconnect();
+            }
+            setConnected(false);
+            console.log("Disconnected");
+        }
+
+        function showMessageOutput(message) {
+            var response = document.getElementById('response');
+            var p = document.createElement('p');
+            p.style.wordWrap = 'break-word';
+            p.appendChild(document.createTextNode(message));
+            response.appendChild(p);
+        }
+
+        function setConnected(connected) {
+            document.querySelector('button[onclick="connect()"]').disabled = connected;
+            document.querySelector('button[onclick="disconnect()"]').disabled = !connected;
+            if (connected) {
+                document.getElementById('response').innerHTML = '';
+            }
+        }
+    </script>
+</body>
+
+</html>
