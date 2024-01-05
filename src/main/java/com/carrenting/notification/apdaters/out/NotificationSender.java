@@ -1,19 +1,22 @@
 package com.carrenting.notification.apdaters.out;
 
+import com.carrenting.notification.ports.out.NotificationSenderInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 @Component
-public class NotificationSender {
-
-    private final SimpMessagingTemplate template;
+public class NotificationSender extends TextWebSocketHandler implements NotificationSenderInterface {
 
     @Autowired
-    public NotificationSender(SimpMessagingTemplate template) {
+    private SimpMessagingTemplate template;
+
+    @Autowired
+    public NotificationSender(@Qualifier("simpMessagingTemplate") SimpMessagingTemplate template) {
         this.template = template;
     }
-
     /**
      * Send a notification message via WebSocket.
      *

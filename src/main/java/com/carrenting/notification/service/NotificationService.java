@@ -11,7 +11,7 @@ public class NotificationService implements NotificationManager {
     private final NotificationSender notificationSender;
 
     @Autowired
-    public NotificationService(NotificationSender notificationSender) {
+    public NotificationService( NotificationSender notificationSender) {
         this.notificationSender = notificationSender;
     }
 
