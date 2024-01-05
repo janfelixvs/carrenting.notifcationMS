@@ -1,10 +1,10 @@
-package com.carrenting.notificationMS;
+package com.carrenting.notification;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NotificationMsApplicationTests {
+class NotificationApplicationTests {
 
 	@Test
 	void contextLoads() {

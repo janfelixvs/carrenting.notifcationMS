@@ -1,13 +1,13 @@
-package com.carrenting.notificationMS;
+package com.carrenting.notification;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NotificationMsApplication {
+public class NotificationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NotificationMsApplication.class, args);
+		SpringApplication.run(NotificationApplication.class, args);
 	}
 
 }
