@@ -1,4 +1,4 @@
-package com.carrenting.notification;
+package com.carrenting.notification.dto;
 
 public class NotificationRequest {
     private int customerId;
