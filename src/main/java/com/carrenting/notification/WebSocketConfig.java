@@ -14,7 +14,6 @@ import java.util.Arrays;
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic");
@@ -43,4 +42,19 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         return new CorsFilter(source);
     }
 
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); // Erstellt eine
+                                                                                        // CORS-Konfigurationsquelle
+                                                                                        // basierend auf URL
+        CorsConfiguration config = new CorsConfiguration(); // Erstellt ein neues CORS-Konfigurationsobjekt
+        config.setAllowCredentials(true); // Ermöglicht das Senden von Anmeldeinformationen
+        config.setAllowedOriginPatterns(Arrays.asList("http://127.0.0.1:5500/", "http://localhost:5500")); // Definiert
+                                                                                                           // erlaubte
+                                                                                                           // Ursprünge
+                                                                                                           // (Frontend-URLs)
+        config.addAllowedHeader(""); // Erlaubt alle Kopfzeilen
+        config.addAllowedMethod(""); // Erlaubt alle HTTP-Methoden
+        source.registerCorsConfiguration("/**", config); // Registriert die CORS-Konfiguration für alle Pfade
+        return new CorsFilter(source); // Gibt den konfigurierten CORS-Filter zurück
+    }
 }
